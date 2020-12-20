@@ -10,6 +10,8 @@ This scraper makes extensive use of the Scrapy library (which is really awesome,
 * datetime
 * itertools
 
+If you don't have any of these files, you can use `pip install` on the command line or use whatever equivalent there is to this in your virtual environment.
+
 ## A little note on each file or directory
 
 ### Python files
