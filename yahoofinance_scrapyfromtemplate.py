@@ -7,7 +7,7 @@ from yahoofinance_scrapyutils import *
 
 # get the company and column information
 COMPANY_NAMES = get_companies("./company-names/sample_symbols.txt")
-COLUMN_NAMES = get_column_names("./column-names/default_column_names.txt")
+COLUMN_NAMES = get_column_names("./column-names/default_column_names_no_units.txt")
 
 
 # set the urls to be scraped

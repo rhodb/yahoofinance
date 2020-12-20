@@ -2,6 +2,7 @@ import os
 import getopt
 import sys
 import itertools
+import datetime
 
 # gets list of tickers that you want to scrape from a file you specify
 def get_companies(filename):
@@ -68,7 +69,11 @@ def convert_data(column):
             column_name = column_name + " prior month"
             date_column_name = date_column_name + " prior month"
         
-        converted_data = zip([column_name, date_column_name], [data, date])
+        # convert date into a different string format
+        datetime_obj = datetime.datetime.strptime(date, "%b. %d %Y")
+        new_date = datetime_obj.strftime("%Y-%m-%d")
+        
+        converted_data = zip([column_name, date_column_name], [data, new_date])
     else:
         converted_data = zip([column_name], [data])
     
@@ -138,7 +143,7 @@ def parse_arguments(argv, date, time):
         print("Column names to be scraped are from file " + colnamesfile)
     except:
         print("Column names to be scraped are the default from ./column-names/default_column_names.txt")
-        colnamesfile = "./column-names/default_column_names.txt"
+        colnamesfile = "./column-names/default_column_names_no_units.txt"
     
     
     # return the set of relevant variables for program
