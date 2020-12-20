@@ -54,7 +54,7 @@ You can use the flag `-h` to retrieve this information as well.
 
 #### Example: Getting data on a subset of the companies and a subset of the column names
 
-In this case, the path to the data will be `./scraped-data/yahooscrape-on-20201220/yahooscrape_at_1408_data.csv`. I did this scrape on Dec. 20, 2020 at 2.08p. Here is the command used.
+In this case, the path to the data will be `./scraped-data/yahooscrape-on-20201220/yahooscrape_at_1642_data.csv`. I did this scrape on Dec. 20, 2020 at 4.42p. Here is the command used.
 
 ```
 python yahoofinance_main.py -i ./company-names/sample_symbols.txt -c ./column-names/subset_column_names.txt
@@ -92,3 +92,8 @@ scrapy runspider yahoofinance_scrapy.py -o my_data.csv
 ```
 
 I didn't run this example, so there is no example data in the repository at the moment.
+
+
+## Miscellaneous notes
+
+* For large numbers like millions, billions and trillions, I represented these numbers with scientific notation in the csv file. Python and R should not have a problem recognizing this and reading these as numbers and not strings.
