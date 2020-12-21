@@ -94,6 +94,15 @@ scrapy runspider yahoofinance_scrapy.py -o my_data.csv
 I didn't run this example, so there is no example data in the repository at the moment.
 
 
+## Notes on custom usage
+
+* When you create your own company and/or column files to determine who and what to scrape, just make a `.txt` file with the list of the of company tickers/symbols as they appear on stock exchanges and/or the list of columns that you want to scrape. For the column file, the caveat is that you have to match ***exactly*** the name as they appear in the `./column-names/default_column_names_no_units.txt` file. Maybe I can build in some functionality to catch exceptions when that happens, but as of right now if the column name you specify is not found, the scraper will just skip over that information (as that exception is actually caught by the Scrapy library, so writing in that functionality would mean I have to peer deeper into that library). Also, this fact isn't too terrible; it helps facilitate consistency across scrapes, so if you do want to compare scraped information on different days, it is easier.
+
+
 ## Miscellaneous notes
 
 * For large numbers like millions, billions and trillions, I represented these numbers with scientific notation in the csv file. Python and R should not have a problem recognizing this and reading these as numbers and not strings.
+
+* There is a difference between a company which has a/some 'N/A' in the Yahoo Finance table and a company who doesn't have a statistics page. In the first case, 'N/A' is recorded as `nan`, and companies for which the information you want to scrape doesn't apply just record ' ' for each of the column values. Just look out for this when you scrape. If you see a company with a lot of ' ' values in the csv file where the data goes, it means that the Yahoo Finance statistics page doesn't exist. Again, because so much of the scraping work is done with the Scrapy library, customizing behavior of the scraper in these cases is a bit more involved because it requires me to go into the library code, so that's why I am just putting a little note here.
+
+* Some companies previously had Yahoo Finance statistics pages, but it seems that they no longer have a page. Maybe that is because of bankruptcy or something, but whatever the case may be sometimes information is ***still*** scraped for them because that webpage still exists in some form the Scrapy library can find it! So, if you get surprising results for a company, really use caution to further investigate. I don't think this situation is that common, but it definitely has come up in the examples. The company BGG is an example of this. I think they recently went bankrupt, but information can still be scraped from https://ca.finance.yahoo.com/quote/BGFV/key-statistics?p=BGFV using the Scrapy library, but if I try to navigate here in my browser, I will be redirected to another page.
